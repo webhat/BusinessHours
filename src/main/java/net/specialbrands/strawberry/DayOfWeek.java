@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Dani‘l W. Crompton <info+straw@specialbrands.net>
+ * Copyright (c) 2013 DaniÃ«l W. Crompton <info+straw@specialbrands.net>
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
