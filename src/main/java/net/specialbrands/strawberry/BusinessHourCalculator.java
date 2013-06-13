@@ -92,17 +92,16 @@ public class BusinessHourCalculator {
 	 * @return
 	 * @throws ParseException
 	 */
+	@SuppressWarnings({ "deprecation" })
 	public Date calculateDeadline(int i, String string) throws ParseException {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = formatter.parse(string);
-
-		boolean ret = false;
 
 		logger.debug("{} <-- start", date.toGMTString());
 
 		long longDate = date.getTime() + Long.valueOf(i * 1000L);
 		Date thisDay = new Date(longDate);
-		int open = open = (new Integer(openingHours.getOpen()[0]) * 60)
+		int open = (new Integer(openingHours.getOpen()[0]) * 60)
 				+ new Integer(openingHours.getOpen()[1]);
 		int closed = (new Integer(openingHours.getClose()[0]) * 60)
 				+ new Integer(openingHours.getClose()[1]);
@@ -126,8 +125,6 @@ public class BusinessHourCalculator {
 			OpeningHours oh = (OpeningHours) holiDays.get(day);
 			if (oh != null) {
 				longDate = date.getTime() + Long.valueOf(i * 1000L);
-				int starttime = time;
-
 				int openHoli = (new Integer(oh.getOpen()[0]) * 60)
 						+ new Integer(oh.getOpen()[1]);
 				int closedHoli = (new Integer(oh.getClose()[0]) * 60)
@@ -147,13 +144,6 @@ public class BusinessHourCalculator {
 			day = formatlookup.format(thisDay);
 			logger.debug(day + "  {}", thisDay.toGMTString());
 		}
-
-		/*
-		 * logger.debug("DoW: " + thisDay.getDay()); while
-		 * (closedDays.contains(thisDay.getDay())) { logger.debug("IN"); ret =
-		 * true; longDate += 86400000L; thisDay = new Date(longDate);
-		 * logger.debug("day{}", thisDay.toGMTString()); }
-		 */
 
 		return thisDay;
 	}
