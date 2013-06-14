@@ -74,9 +74,9 @@ public class BusinessHourCalculator {
 	 * @param day1
 	 * @param day2
 	 */
-	public void setClosed(DayOfWeek day1, DayOfWeek day2) {
-		setClosed(day1);
-		setClosed(day2);
+	public void setClosed(DayOfWeek... days) {
+		for (DayOfWeek day : days)
+			setClosed(day);
 	}
 
 	/**
@@ -101,13 +101,13 @@ public class BusinessHourCalculator {
 
 		long longDate = date.getTime() + Long.valueOf(i * 1000L);
 		Date thisDay = new Date(longDate);
-		int open = (new Integer(openingHours.getOpen()[0]) * 60)
-				+ new Integer(openingHours.getOpen()[1]);
-		int closed = (new Integer(openingHours.getClose()[0]) * 60)
-				+ new Integer(openingHours.getClose()[1]);
+		int open = (openingHours.getOpenHour() * 60)
+				+ openingHours.getOpenMinute();
+		int closed = (openingHours.getCloseHour() * 60)
+				+ openingHours.getCloseMinute();
 		int time = (thisDay.getHours() * 60) + thisDay.getMinutes();
 
-		if (thisDay.getHours() >= new Integer(openingHours.getClose()[0])) {
+		if (thisDay.getHours() >= openingHours.getCloseHour()) {
 			int rest = open + ((24 * 60) - closed);
 
 			longDate += new Long(rest * 60 * 1000);
@@ -125,10 +125,8 @@ public class BusinessHourCalculator {
 			OpeningHours oh = (OpeningHours) holiDays.get(day);
 			if (oh != null) {
 				longDate = date.getTime() + Long.valueOf(i * 1000L);
-				int openHoli = (new Integer(oh.getOpen()[0]) * 60)
-						+ new Integer(oh.getOpen()[1]);
-				int closedHoli = (new Integer(oh.getClose()[0]) * 60)
-						+ new Integer(oh.getClose()[1]);
+				int openHoli = (oh.getOpenHour() * 60) + oh.getOpenMinute();
+				int closedHoli = (oh.getCloseHour() * 60) + oh.getCloseMinute();
 
 				int rest = openHoli + ((24 * 60) - closedHoli);
 
@@ -136,7 +134,6 @@ public class BusinessHourCalculator {
 
 				longDate += new Long(rest * 60 * 1000);
 				thisDay = new Date(longDate);
-
 			} else
 				longDate += 86400000L;
 
@@ -149,9 +146,10 @@ public class BusinessHourCalculator {
 	}
 
 	/**
-	 * @param string
+	 * @param dates
 	 */
-	public void setClosed(String string) {
-		closedDates.add(string);
+	public void setClosed(String... dates) {
+		for (String date : dates)
+			closedDates.add(date);
 	}
 }

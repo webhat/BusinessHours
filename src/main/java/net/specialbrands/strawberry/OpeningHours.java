@@ -16,7 +16,10 @@ public class OpeningHours {
 	 */
 	private String[] open;
 	private String[] close;
-	private long secondsOpen;
+	private int openHour;
+	private int openMinute;
+	private int closeHour;
+	private int closeMinute;
 
 	/**
 	 * @param _open
@@ -25,15 +28,17 @@ public class OpeningHours {
 	 *            TODO
 	 */
 	public OpeningHours(String _open, String _close) {
-		setOpen(_open.split(":"));
-		setClose(_close.split(":"));
-		secondsOpen = new Long(
-				((new Integer(close[0]) * 60 * 60) + (new Integer(close[1]) * 60))
-						- ((new Integer(open[0]) * 60 * 60) + (new Integer(
-								open[1]) * 60)));
+		open = _open.split(":");
+		openHour = new Integer(open[0]);
+		openMinute = new Integer(open[1]);
+
+		close = _close.split(":");
+		closeHour = new Integer(close[0]);
+		closeMinute = new Integer(close[1]);
 	}
 
 	/**
+	 * @deprecated
 	 * @return the close
 	 */
 	public String[] getClose() {
@@ -41,6 +46,7 @@ public class OpeningHours {
 	}
 
 	/**
+	 * @deprecated
 	 * @param close
 	 *            the close to set
 	 */
@@ -49,6 +55,7 @@ public class OpeningHours {
 	}
 
 	/**
+	 * @deprecated
 	 * @return the open
 	 */
 	public String[] getOpen() {
@@ -56,10 +63,43 @@ public class OpeningHours {
 	}
 
 	/**
+	 * @deprecated
 	 * @param open
 	 *            the open to set
 	 */
 	public void setOpen(String[] open) {
 		this.open = open;
+	}
+
+	/**
+	 * @return
+	 */
+	public int getOpenHour() {
+		// TODO Auto-generated method stub
+		return openHour;
+	}
+
+	/**
+	 * @return
+	 */
+	public int getOpenMinute() {
+		// TODO Auto-generated method stub
+		return openMinute;
+	}
+
+	/**
+	 * @return
+	 */
+	public int getCloseHour() {
+		// TODO Auto-generated method stub
+		return closeHour;
+	}
+
+	/**
+	 * @return
+	 */
+	public int getCloseMinute() {
+		// TODO Auto-generated method stub
+		return closeMinute;
 	}
 }
